@@ -835,6 +835,9 @@ private:
     status_t createEffectLayer(const LayerCreationArgs& args, sp<IBinder>* outHandle,
                                sp<Layer>* outLayer);
 
+    // Checks if there are layer leaks before creating layer
+    status_t checkLayerLeaks();
+
     status_t mirrorLayer(const LayerCreationArgs& args, const sp<IBinder>& mirrorFromHandle,
                          gui::CreateSurfaceResult& outResult);
 
@@ -1299,6 +1302,7 @@ private:
     std::atomic_bool mForceFullDamage = false;
 
     bool mLayerCachingEnabled = false;
+    bool mPropagateBackpressure = true;
     bool mBackpressureGpuComposition = false;
 
     LayerTracing mLayerTracing;
